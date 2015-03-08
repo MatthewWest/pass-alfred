@@ -1,0 +1,152 @@
+#!/usr/bin/python
+# encoding: utf-8
+
+import sys
+import os
+import shlex
+
+
+from workflow import Workflow
+
+
+def search_key_for_pw(fullpath):
+    """Generate a string search key for a full path of a password file"""
+    basename = os.path.basename(fullpath)
+    elements = []
+    elements.append(os.path.splitext(basename)[0])
+    return u' '.join(elements)
+
+
+def main(wflow):
+    # The Workflow instance will be passed to the function
+    # you call from `Workflow.run`
+    # Your imports here if you want to catch import errors
+    # or if the modules/packages are in a directory added via `Workflow(libraries=...)`
+
+    args = wflow.args[0].split()
+    # Get args from Workflow, already in normalised Unicode
+    if len(args) == 0:
+        query = None
+
+    if args[0] == u'add' or args[0] == u'insert':
+        if len(args) == 1:
+            wflow.add_item('Add password to pass')
+        elif len(args) == 2:
+            wflow.add_item(args[0] + u' ' + args[1],
+                           arg=(args[0] + u' ' + args[1]), valid=True)
+        elif len(args) > 2:
+            wflow.add_item(u'Do not include spaces in pass names', valid=False)
+
+        wflow.send_feedback()
+        exit()
+    elif args[0] == u'edit':
+        if len(args) == 1:
+            wflow.add_item(u'Edit an existing password in pass')
+            wf.send_feedback()
+            exit()
+        elif len(args) == 2:
+            query = args[1]
+        elif len(args) > 2:
+            wflow.add_item(u'Do not include spaces in pass names', valid=False)
+            wflow.send_feedback()
+            exit()
+        edit = True
+        display = False
+        rm = False
+    elif args[0] == u'rm' or args[0] == u'remove' or args[0] == u'delete':
+        if len(args) ==1:
+            wflow.add_item(u'Remove a password from pass')
+            wflow.send_feedback()
+            exit()
+        elif len(args) == 2:
+            query = args[1]
+        elif len(args) > 2:
+            wflow.add_item(u'Do not include spaces in pass names', valid=False)
+            wflow.send_feedback()
+            exit()
+        edit = False
+        display = False
+        rm = True
+    elif len(args) == 1:
+        if args[0] == u'grep':
+            wflow.add_item(u'Grep for a string in the decrypted password files')
+            wflow.send_feedback()
+            exit()
+        elif args[0] == u'init':
+            wflow.add_item(u'Initialize the password store')
+            wflow.send_feedback()
+            exit()
+        elif args[0] == u'ls':
+            wflow.add_item(u'List names of passwords inside the tree')
+            wflow.send_feedback()
+            exit()
+        elif args[0] == u'find' or args[0] == u'search':
+            wflow.add_item(u'List names of passwords that match the argument')
+            wflow.send_feedback()
+            exit()
+        elif args[0] == u'generate':
+            wflow.add_item(u'Generate a password: generate pass-name pass-length')
+            wflow.send_feedback()
+            exit()
+        elif args[0] == u'cp': # should be split out to its own command
+            wflow.add_item(u'Copy a password from old-path to new-path')
+            wflow.send_feedback()
+            exit()
+        elif args[0] == u'git':
+            wflow.add_item(u'Execute git for the password store')
+            wflow.send_feedback()
+            exit()
+        elif args[0] == u'show':
+            query = args[1]
+        else:
+            query = args[0]
+        display = True
+        edit = False
+        rm = False
+
+    else:
+        command = u''
+        for arg in args:
+            command += arg + u' '
+        wflow.add_item(command, arg=command, valid=True)
+        wflow.send_feedback()
+        exit()
+
+
+
+
+
+    password_dir = os.path.expanduser('~/.password-store')
+
+    if not os.path.exists(password_dir):
+        wflow.add_item(u'Password directory not found', u'Specify with pdir')
+    else:
+        pws = os.listdir(password_dir)
+        pws = filter(lambda x: not (x[0] == '.'), pws)
+        full_paths = []
+
+        for pw in pws:
+            full_paths.append(os.path.join(password_dir, pw))
+
+        results = wflow.filter(query, full_paths, key=search_key_for_pw, min_score=20)
+
+        for r in results:
+            r = os.path.basename(r)
+            r = os.path.splitext(r)[0]
+            if edit:
+                wflow.add_item(r, arg=(u'edit ' + r), valid=True, autocomplete=(u'edit ' + r))
+            if display:
+                wflow.add_item(r, u'', arg=(u'-c ' + r), valid=True, autocomplete=r)
+            if rm:
+                wflow.add_item(r, u'', arg=(u'rm ' + r), valid=True, autocomplete=(u'rm ' + r))
+
+    # Add an item to Alfred feedback
+
+
+    # Send output to Alfred
+    wflow.send_feedback()
+
+
+if __name__ == '__main__':
+    wf = Workflow()
+    sys.exit(wf.run(main))

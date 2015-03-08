@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>bundleid</key>
+	<string>org.passwordstore.pass</string>
+	<key>category</key>
+	<string>Tools</string>
+	<key>connections</key>
+	<dict>
+		<key>0A7F94DA-8824-4BEA-892C-25D9882A4143</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>7C24829E-6EDA-48DF-93AE-4C238B4A6355</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+			</dict>
+		</array>
+		<key>7C24829E-6EDA-48DF-93AE-4C238B4A6355</key>
+		<array/>
+	</dict>
+	<key>createdby</key>
+	<string>Matthew West</string>
+	<key>description</key>
+	<string>Helps fetch passwords out of pass</string>
+	<key>disabled</key>
+	<false/>
+	<key>name</key>
+	<string>pass</string>
+	<key>objects</key>
+	<array>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>escaping</key>
+				<integer>126</integer>
+				<key>script</key>
+				<string>./term.sh "pass {query}"</string>
+				<key>type</key>
+				<integer>0</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.script</string>
+			<key>uid</key>
+			<string>7C24829E-6EDA-48DF-93AE-4C238B4A6355</string>
+			<key>version</key>
+			<integer>0</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argumenttype</key>
+				<integer>0</integer>
+				<key>escaping</key>
+				<integer>127</integer>
+				<key>keyword</key>
+				<string>pass</string>
+				<key>queuedelaycustom</key>
+				<integer>3</integer>
+				<key>queuedelayimmediatelyinitially</key>
+				<false/>
+				<key>queuedelaymode</key>
+				<integer>0</integer>
+				<key>queuemode</key>
+				<integer>1</integer>
+				<key>script</key>
+				<string>python pass.py {query}</string>
+				<key>title</key>
+				<string>Copy Password from pass</string>
+				<key>type</key>
+				<integer>0</integer>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.scriptfilter</string>
+			<key>uid</key>
+			<string>0A7F94DA-8824-4BEA-892C-25D9882A4143</string>
+			<key>version</key>
+			<integer>0</integer>
+		</dict>
+	</array>
+	<key>readme</key>
+	<string>Requires pass (passwordstore.org)
+Not mean to completely take the place of the CLI, though could get there eventually.</string>
+	<key>uidata</key>
+	<dict>
+		<key>0A7F94DA-8824-4BEA-892C-25D9882A4143</key>
+		<dict>
+			<key>ypos</key>
+			<real>60</real>
+		</dict>
+		<key>7C24829E-6EDA-48DF-93AE-4C238B4A6355</key>
+		<dict>
+			<key>ypos</key>
+			<real>60</real>
+		</dict>
+	</dict>
+	<key>webaddress</key>
+	<string></string>
+</dict>
+</plist>
