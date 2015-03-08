@@ -1,4 +1,31 @@
-# pass-alfred
-An alfred UI for the pass password manager (passwordstore.org)
+# pass
 
-This is a very simple wrapper. It is not smart enough to handle password-stores other than in the home directory, so that is a place that needs improvement. It autocompletes in Alfred for most of the commands that operate on existing passwords (I think the only exception is for cp), and passes through any input matching one of pass's commands unchanged to Terminal.app. 
+pass provides a thin wrapper around the pass password management tool. Its intent is to make copying passwords while browsing the web quick and easy. It also supports the other functionality of pass, passing through to the terminal.
+
+##Keywords:
+
+`pass`
+
+This is the only keyword provided. However, the script called in the script filter handles some other keywords to provide autocomplete, including:
+
+	pass git
+	pass add
+	pass rm
+
+All the commands for pass are supported, and will be passed through to the terminal.
+
+The default use case is as follows:
+
+pass <pass-name>
+
+This will search for a password of pass-name, autocompleting the results, then copy the result when it is selected.
+
+Requirements:
+
+Must have pass, and its requirement, gpg. Also should already have a key, and have set up the .password-store directory. This is easiest with `brew install pass`, then follow the `instructions in man pass`
+
+Screenshots:
+
+![Screenshot 1](pass_shot1.jpg)
+![Screenshot 2](pass_shot2.jpg)
+![Screenshot 3](pass_shot3.jpg)
