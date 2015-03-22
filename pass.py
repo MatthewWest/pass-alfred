@@ -16,6 +16,21 @@ def search_key_for_pw(fullpath):
     elements.append(os.path.splitext(basename)[0])
     return u' '.join(elements)
 
+def extract_pw_keys(path):
+    """Allow recursive directory checking"""
+    children = os.listdir(path)
+    children = filter(lambda x: not (x[0] == '.'), children)
+    full_paths = []
+
+    for child in children:
+        full_path = os.path.join(path, child)
+        if os.path.isfile(full_path):
+            full_paths.append(full_path)
+        else:
+            full_paths.extend(extract_pw_keys(full_path))
+
+    return full_paths
+
 
 def main(wflow):
     # The Workflow instance will be passed to the function
@@ -121,17 +136,11 @@ def main(wflow):
     if not os.path.exists(password_dir):
         wflow.add_item(u'Password directory not found', u'Specify with pdir')
     else:
-        pws = os.listdir(password_dir)
-        pws = filter(lambda x: not (x[0] == '.'), pws)
-        full_paths = []
-
-        for pw in pws:
-            full_paths.append(os.path.join(password_dir, pw))
-
-        results = wflow.filter(query, full_paths, key=search_key_for_pw, min_score=20)
+        full_paths = extract_pw_keys(password_dir)
+        rel_paths = [os.path.relpath(full_path, password_dir) for full_path in full_paths]
+        results = wflow.filter(query, rel_paths, key=search_key_for_pw, min_score=20)
 
         for r in results:
-            r = os.path.basename(r)
             r = os.path.splitext(r)[0]
             if edit:
                 wflow.add_item(r, arg=(u'edit ' + r), valid=True, autocomplete=(u'edit ' + r))
