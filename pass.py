@@ -9,11 +9,10 @@ import shlex
 from workflow import Workflow
 
 
-def search_key_for_pw(fullpath):
+def search_key_for_pw(relpath):
     """Generate a string search key for a full path of a password file"""
-    basename = os.path.basename(fullpath)
     elements = []
-    elements.append(os.path.splitext(basename)[0])
+    elements.append(os.path.splitext(relpath)[0])
     return u' '.join(elements)
 
 def extract_pw_keys(path):
