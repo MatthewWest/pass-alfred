@@ -5,7 +5,7 @@
 	<key>bundleid</key>
 	<string>org.passwordstore.pass</string>
 	<key>category</key>
-	<string>Tools</string>
+	<string>Productivity</string>
 	<key>connections</key>
 	<dict>
 		<key>0A7F94DA-8824-4BEA-892C-25D9882A4143</key>
@@ -17,6 +17,14 @@
 				<integer>0</integer>
 				<key>modifiersubtext</key>
 				<string></string>
+			</dict>
+			<dict>
+				<key>destinationuid</key>
+				<string>517EE396-1ADF-43A1-9A1D-6944DE81CC9C</string>
+				<key>modifiers</key>
+				<integer>1048576</integer>
+				<key>modifiersubtext</key>
+				<string>View the password info rather than copying</string>
 			</dict>
 		</array>
 		<key>7C24829E-6EDA-48DF-93AE-4C238B4A6355</key>
@@ -35,10 +43,12 @@
 		<dict>
 			<key>config</key>
 			<dict>
+				<key>concurrently</key>
+				<false/>
 				<key>escaping</key>
 				<integer>126</integer>
 				<key>script</key>
-				<string>./term.sh "pass {query}"</string>
+				<string>osascript execute_shell_cmd.scpt "{query}"</string>
 				<key>type</key>
 				<integer>0</integer>
 			</dict>
@@ -82,6 +92,25 @@
 			<key>version</key>
 			<integer>0</integer>
 		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>concurrently</key>
+				<false/>
+				<key>escaping</key>
+				<integer>68</integer>
+				<key>script</key>
+				<string>osascript execute_shell_cmd.scpt "$(echo "{query}" | sed "s/pass -c/pass/g")"</string>
+				<key>type</key>
+				<integer>0</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.output.script</string>
+			<key>uid</key>
+			<string>517EE396-1ADF-43A1-9A1D-6944DE81CC9C</string>
+			<key>version</key>
+			<integer>0</integer>
+		</dict>
 	</array>
 	<key>readme</key>
 	<string>Requires pass (passwordstore.org)
@@ -91,12 +120,17 @@ Not mean to completely take the place of the CLI, though could get there eventua
 		<key>0A7F94DA-8824-4BEA-892C-25D9882A4143</key>
 		<dict>
 			<key>ypos</key>
-			<real>60</real>
+			<real>150</real>
+		</dict>
+		<key>517EE396-1ADF-43A1-9A1D-6944DE81CC9C</key>
+		<dict>
+			<key>ypos</key>
+			<real>270</real>
 		</dict>
 		<key>7C24829E-6EDA-48DF-93AE-4C238B4A6355</key>
 		<dict>
 			<key>ypos</key>
-			<real>60</real>
+			<real>10</real>
 		</dict>
 	</dict>
 	<key>webaddress</key>

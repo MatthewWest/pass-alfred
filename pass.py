@@ -3,7 +3,10 @@
 
 import sys
 import os
-import shlex
+if sys.version_info < (3,0):
+    import pipes
+else:
+    import shlex
 
 
 from workflow import Workflow
@@ -46,8 +49,8 @@ def main(wflow):
         if len(args) == 1:
             wflow.add_item('Add password to pass')
         elif len(args) == 2:
-            wflow.add_item(args[0] + u' ' + args[1],
-                           arg=(args[0] + u' ' + args[1]), valid=True)
+            wflow.add_item(u'pass ' + args[0] + u' ' + args[1],
+                           arg=(u'pass ' + args[0] + u' ' + args[1]), valid=True)
         elif len(args) > 2:
             wflow.add_item(u'Do not include spaces in pass names', valid=False)
 
@@ -119,7 +122,7 @@ def main(wflow):
         rm = False
 
     else:
-        command = u''
+        command = u'pass '
         for arg in args:
             command += arg + u' '
         wflow.add_item(command, arg=command, valid=True)
@@ -140,13 +143,19 @@ def main(wflow):
         results = wflow.filter(query, rel_paths, key=search_key_for_pw, min_score=20)
 
         for r in results:
+            r = os.path.basename(r)
             r = os.path.splitext(r)[0]
+            if sys.version_info >= (3,0):
+                r = shlex.quote(r)
+            else:
+                r = pipes.quote(r)
+
             if edit:
-                wflow.add_item(r, arg=(u'edit ' + r), valid=True, autocomplete=(u'edit ' + r))
+                wflow.add_item(r, arg=(u'pass edit ' + r), valid=True, autocomplete=(u'pass edit ' + r))
             if display:
-                wflow.add_item(r, u'', arg=(u'-c ' + r), valid=True, autocomplete=r)
+                wflow.add_item(r, u'', arg= u'pass -c ' + r, valid=True, autocomplete=r)
             if rm:
-                wflow.add_item(r, u'', arg=(u'rm ' + r), valid=True, autocomplete=(u'rm ' + r))
+                wflow.add_item(r, u'', arg=(u'pass rm ' + r), valid=True, autocomplete=(u'pass rm ' + r))
 
     # Add an item to Alfred feedback
 
