@@ -17,6 +17,8 @@
 				<integer>0</integer>
 				<key>modifiersubtext</key>
 				<string></string>
+				<key>vitoclose</key>
+				<false/>
 			</dict>
 			<dict>
 				<key>destinationuid</key>
@@ -25,6 +27,8 @@
 				<integer>1048576</integer>
 				<key>modifiersubtext</key>
 				<string>View the password info rather than copying</string>
+				<key>vitoclose</key>
+				<false/>
 			</dict>
 		</array>
 		<key>7C24829E-6EDA-48DF-93AE-4C238B4A6355</key>
@@ -48,7 +52,11 @@
 				<key>escaping</key>
 				<integer>126</integer>
 				<key>script</key>
-				<string>osascript execute_shell_cmd.scpt "{query}"</string>
+				<string>osascript execute_iterm3beta.scpt "{query}"</string>
+				<key>scriptargtype</key>
+				<integer>0</integer>
+				<key>scriptfile</key>
+				<string></string>
 				<key>type</key>
 				<integer>0</integer>
 			</dict>
@@ -57,11 +65,13 @@
 			<key>uid</key>
 			<string>7C24829E-6EDA-48DF-93AE-4C238B4A6355</string>
 			<key>version</key>
-			<integer>0</integer>
+			<integer>2</integer>
 		</dict>
 		<dict>
 			<key>config</key>
 			<dict>
+				<key>alfredfiltersresults</key>
+				<false/>
 				<key>argumenttype</key>
 				<integer>0</integer>
 				<key>escaping</key>
@@ -76,8 +86,16 @@
 				<integer>0</integer>
 				<key>queuemode</key>
 				<integer>1</integer>
+				<key>runningsubtext</key>
+				<string></string>
 				<key>script</key>
 				<string>python pass.py {query}</string>
+				<key>scriptargtype</key>
+				<integer>0</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>subtext</key>
+				<string></string>
 				<key>title</key>
 				<string>Copy Password from pass</string>
 				<key>type</key>
@@ -90,7 +108,7 @@
 			<key>uid</key>
 			<string>0A7F94DA-8824-4BEA-892C-25D9882A4143</string>
 			<key>version</key>
-			<integer>0</integer>
+			<integer>2</integer>
 		</dict>
 		<dict>
 			<key>config</key>
@@ -100,16 +118,20 @@
 				<key>escaping</key>
 				<integer>68</integer>
 				<key>script</key>
-				<string>osascript execute_shell_cmd.scpt "$(echo "{query}" | sed "s/pass -c/pass/g")"</string>
+				<string>osascript execute_iterm3beta.scpt "$(echo "{query}" | sed "s/pass -c/pass/g")"</string>
+				<key>scriptargtype</key>
+				<integer>0</integer>
+				<key>scriptfile</key>
+				<string></string>
 				<key>type</key>
 				<integer>0</integer>
 			</dict>
 			<key>type</key>
-			<string>alfred.workflow.output.script</string>
+			<string>alfred.workflow.action.script</string>
 			<key>uid</key>
 			<string>517EE396-1ADF-43A1-9A1D-6944DE81CC9C</string>
 			<key>version</key>
-			<integer>0</integer>
+			<integer>2</integer>
 		</dict>
 	</array>
 	<key>readme</key>
@@ -119,16 +141,22 @@ Not mean to completely take the place of the CLI, though could get there eventua
 	<dict>
 		<key>0A7F94DA-8824-4BEA-892C-25D9882A4143</key>
 		<dict>
+			<key>xpos</key>
+			<integer>300</integer>
 			<key>ypos</key>
 			<real>150</real>
 		</dict>
 		<key>517EE396-1ADF-43A1-9A1D-6944DE81CC9C</key>
 		<dict>
+			<key>xpos</key>
+			<integer>700</integer>
 			<key>ypos</key>
 			<real>270</real>
 		</dict>
 		<key>7C24829E-6EDA-48DF-93AE-4C238B4A6355</key>
 		<dict>
+			<key>xpos</key>
+			<integer>500</integer>
 			<key>ypos</key>
 			<real>10</real>
 		</dict>
