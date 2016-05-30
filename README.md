@@ -2,6 +2,10 @@
 
 pass provides a thin wrapper around the pass password management tool. Its intent is to make copying passwords while browsing the web quick and easy. It also supports the other functionality of pass, passing through to the terminal.
 
+## Install:
+
+The recommended place to get pass is at [Packal](http://www.packal.org/workflow/pass). This will enable it to be updated in the future with the Packal workflow.
+
 ##Keywords:
 
 `pass`
