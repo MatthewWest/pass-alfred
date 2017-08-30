@@ -143,7 +143,6 @@ def main(wflow):
         results = wflow.filter(query, rel_paths, key=search_key_for_pw, min_score=20)
 
         for r in results:
-            r = os.path.basename(r)
             r = os.path.splitext(r)[0]
             if sys.version_info >= (3,0):
                 r = shlex.quote(r)
