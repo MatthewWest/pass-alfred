@@ -9,7 +9,7 @@ The recommended place to get pass is at [Packal](http://www.packal.org/workflow/
 ## Terminal.app
 The workflow now supports Terminal.app as well. To use this, open the workflow in Alfred. In each `Run Script` bubble, change the word `execute_iterm3beta.scpt` to `execute_terminal.scpt`. Now the workflow will use Terminal.app.
 
-##Keywords:
+## Keywords:
 
 `pass`
 
@@ -27,11 +27,11 @@ pass <pass-name>
 
 This will search for a password of pass-name, autocompleting the results, then copy the result when it is selected.
 
-##Requirements:
+## Requirements:
 
 Must have pass, and its requirement, gpg. Also should already have a key, and have set up the .password-store directory. This is easiest with `brew install pass`, then follow the `instructions in man pass`
 
-##Screenshots:
+## Screenshots:
 
 ![Screenshot 1](pass_shot1.jpg)
 ![Screenshot 2](pass_shot2.jpg)
