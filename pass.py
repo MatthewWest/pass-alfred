@@ -8,6 +8,8 @@ if sys.version_info < (3,0):
 else:
     import shlex
 
+reload(sys)
+sys.setdefaultencoding('utf8')
 
 from workflow import Workflow
 
